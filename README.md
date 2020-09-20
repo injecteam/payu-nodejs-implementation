@@ -1,10 +1,10 @@
-# 🔥 Nikolasmelui Nodejs Boilerplate
+# payu-nodejs-implementation
 
-[Nikolasmelui Nodejs Boilerplate][nikolasmelui-nodejs-boilerplate] powered by [NikolasMelui][nikolasmelui] is a lightweight nodejs boilerplate using [eslint][eslint], [prettier][prettier], [lint-staged][lint-staged], [husky][husky] and [nodemon][nodemon] onboard. Just clone it, `nmp i`, `npm start` and have fun!
+[payu-nodejs-implementation][payu-nodejs-implementation] powered by [NikolasMelui][nikolasmelui] from [injecteam][injecteam] is a simple implementation of the payu procotol. Using [eslint][eslint], [prettier][prettier], [lint-staged][lint-staged], [husky][husky] and [nodemon][nodemon] onboard.
 
-## Node.js >=14.5 version
+## Node.js >=14.11.0 version
 
-The project is node.js engine stricted by the >=14.5.0 version!
+The project is node.js engine stricted by the >=14.11.0 version!
 
 ## Installation
 
@@ -57,21 +57,6 @@ The husky and lint-staged will not let you make a mistake, pre-comit and pre-pus
 Contribute? Sure!
 This is an opensource project, so all of the contributions are welcome. Make a fork and go!
 
-| Todos       | Status |
-| ----------- | ------ |
-| Nodemon     | +      |
-| Tests       | +      |
-| ESLint      | +      |
-| Lint-staged | +      |
-| Prettier    | +      |
-| Husky       | +      |
-| Logger      | -      |
-| Docker      | -      |
-| CI\CD       | -      |
-| Workers     | -      |
-| WebSockets  | -      |
-| VMContexts  | -      |
-
 ---
 
 ## License
@@ -100,10 +85,13 @@ SOFTWARE.
 
 **From developers 2 developers.**
 [NikolasMelui][nikolasmelui]
+[injecteam][injecteam]
 
 [//]: # "These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax"
 [nikolasmelui]: https://github.com/NikolasMelui
+[injecteam]: https://github.com/injecteam
 [nikolasmelui-nodejs-boilerplate]: https://github.com/NikolasMelui/nikolasmelui-nodejs-boilerplate
+[payu-nodejs-implementation]: https://github.com/injecteam/payu-nodejs-implementation
 [nodejs]: http://nodejs.org
 [npm]: https://www.npmjs.com/
 [eslint]: https://eslint.org/
