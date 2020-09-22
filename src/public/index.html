@@ -4,25 +4,47 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>PayU Vuejs Implementation</title>
   </head>
 
   <body>
     <div id="app">
-      <div v-for="product in products">
-        {{product.quantity}} {{product.name}} ({{product.unitPrice}}) -
-        <button @click="product.quantity += 1">+</button>
-        <button @click="product.quantity > 0 ? product.quantity -= 1 : product.quantity">-</button>
-      </div>
+      <h3>Buyer</h3>
+      <form class="buyer section">
+        <input type="email" name="email" placeholder="email" id="email" v-model="buyer.email" required>
+        <input type="tel" name="phone" placeholder="phone" id="phone" v-model="buyer.phone" required>
+        <input type="text" name="firstName" placeholder="firstName" id="firstName" v-model="buyer.firstName" required>
+        <input type="text" name="lastName" placeholder="lastName" id="lastName" v-model="buyer.lastName" required>
+      </form>
+      <h3>Products</h3>
+      <ul class="products section">
+        <li class="product" v-for="product in products">
+          <p>Quantity: <b>{{product?.quantity}}</b></p>
+          <p>Product: <b>{{product?.name}}</b></p>
+          <p>Price: <b>{{product?.unitPrice}}</b></p>
+          <button @click="product.quantity += 1">+</button>
+          <button @click="product.quantity > 0 ? product.quantity -= 1 : product.quantity">-</button>
+        </li>
+      </ul>
       <h2>Total amount: {{ totalAmount }}</h2>
+      <button @click="order">Order</button>
     </div>
 
-    <script src="https://unpkg.com/vue@2.6.12/dist/vue.js"></script>
-    <script>
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://unpkg.com/axios"></script>
 
+    <script>
       const app = new Vue({
         el: '#app',
         data: {
+          errors: [],
+          buyer: {
+            email: '',
+            phone: '',
+            firstName: '',
+            lastName: '',
+            language: 'pl'
+          },
           products: [
             {
               name: "Wireless Mouse for Laptop",
@@ -38,16 +60,80 @@
         },
         computed: {
           totalAmount() {
-            return this.products.reduce((sum, product) => {
+            return this.products?.reduce((sum, product) => {
               return sum + product.quantity * product.unitPrice
             }, 0)
           }
+        },
+        methods: {
+          checkForm() {
+            this.errors = [];
+            if (!this.buyer?.email) this.errors.push('Please type your email');
+            if (!this.buyer?.phone) this.errors.push('Please type your phone');
+            if (!this.buyer?.firstName) this.errors.push('Please type your firstName');
+            if (!this.buyer?.lastName) this.errors.push('Please type your lastName');
+            if (!this.totalAmount) this.errors.push('Please choose any product');
+            if (this.errors.length) {
+              this.errors.forEach(error => console.error(error));
+              throw new Error('Form validation error');
+            };
+          },
 
+          async order() {
+            try {
+              const BACKEND_URL = 'http://localhost:3000'
+              const productList = [...this.products].filter(product => product.quantity > 0).map(product => ({ ...product }));
+              this.checkForm();
+              const result = await axios.post(`${PAYMENT_URL}/payment`, {
+                totalAmount: this.totalAmount,
+                buyer: this.buyer,
+                products: this.products
+              });
+              setTimeout(() => {
+                window.location.href = result?.data?.redirectUri;
+              }, 5000);
+              console.info(result);
+            } catch (error) {
+              console.error(error);
+            }
+          }
         }
       })
-
     </script>
+    <style>
+      h3 {
+        margin: 5px 0;
+      }
 
+      .section {
+        margin-left: 10px;
+      }
+
+      .buyer {
+        display: flex;
+        flex-direction: column;
+        max-width: 300px;
+      }
+
+      .buyer input {
+        margin-bottom: 10px;
+        padding: 4px;
+      }
+
+      .products {
+        list-style: none;
+        padding: 0;
+      }
+
+      .product {
+        margin: 10px 0;
+      }
+
+      .product p {
+        margin: 0 0 5px 0;
+      }
+
+    </style>
   </body>
 
 </html>
