@@ -5,6 +5,9 @@
 //   },
 //   PAYU: {
 //     URL: 'https://secure.snd.payu.com',
+//     CLIENT_ID: 0,
+//     CLIENT_SECRET: '',
+//     GRANT_TYPE: 'client_credentials',
 //   },
 // };
 
