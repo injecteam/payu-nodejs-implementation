@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,6 +8,46 @@
   </head>
 
   <body>
-    <h1>Hello!</h1>
+    <div id="app">
+      <div v-for="product in products">
+        {{product.quantity}} {{product.name}} ({{product.unitPrice}}) -
+        <button @click="product.quantity += 1">+</button>
+        <button @click="product.quantity > 0 ? product.quantity -= 1 : product.quantity">-</button>
+      </div>
+      <h2>Total amount: {{ totalAmount }}</h2>
+    </div>
+
+    <script src="https://unpkg.com/vue@2.6.12/dist/vue.js"></script>
+    <script>
+
+      const app = new Vue({
+        el: '#app',
+        data: {
+          products: [
+            {
+              name: "Wireless Mouse for Laptop",
+              unitPrice: 15000,
+              quantity: 0,
+            },
+            {
+              name: "HDMI cable",
+              unitPrice: 6000,
+              quantity: 0,
+            }
+          ]
+        },
+        computed: {
+          totalAmount() {
+            return this.products.reduce((sum, product) => {
+              return sum + product.quantity * product.unitPrice
+            }, 0)
+          }
+
+        }
+      })
+
+    </script>
+
   </body>
+
 </html>
