@@ -84,14 +84,14 @@
               const BACKEND_URL = 'http://localhost:3000'
               const productList = [...this.products].filter(product => product.quantity > 0).map(product => ({ ...product }));
               this.checkForm();
-              const result = await axios.post(`${PAYMENT_URL}/payment`, {
+              const result = await axios.post(`${BACKEND_URL}/payment`, {
                 totalAmount: this.totalAmount,
                 buyer: this.buyer,
                 products: this.products
               });
-              setTimeout(() => {
-                window.location.href = result?.data?.redirectUri;
-              }, 5000);
+              // setTimeout(() => {
+              //   window.location.href = result?.data?.redirectUri;
+              // }, 5000);
               console.info(result);
             } catch (error) {
               console.error(error);
